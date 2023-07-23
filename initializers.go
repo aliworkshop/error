@@ -1,4 +1,4 @@
-package errorslib
+package error
 
 func Validation(err ...error) ErrorModel {
 	var e = New(err...).WithType(TypeValidation)

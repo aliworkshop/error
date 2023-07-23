@@ -1,4 +1,4 @@
-package errorslib
+package error
 
 func IsNotFoundError(err error) bool {
 	e, ok := err.(NotfoundError)

@@ -1,3 +1,3 @@
-module github.com/aliworkshop/errorslib
+module github.com/aliworkshop/error
 
 go 1.18

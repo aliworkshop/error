@@ -1,4 +1,4 @@
-package errorslib
+package error
 
 var DefaultUnAuthorizedError = UnAuthorized().
 	WithId("UnAuthorizedError").

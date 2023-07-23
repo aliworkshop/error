@@ -1,4 +1,4 @@
-package errorslib
+package error
 
 func HandleError(err error) ErrorModel {
 	if err == nil {

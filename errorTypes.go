@@ -1,4 +1,4 @@
-package errorslib
+package error
 
 type InternalError ErrorModel
 type NotfoundError ErrorModel

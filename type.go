@@ -1,4 +1,4 @@
-package errorslib
+package error
 
 const (
 	TypeValidation       ErrorType = "VALIDATION"
