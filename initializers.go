@@ -24,18 +24,3 @@ func UnAuthorized(err ...error) ErrorModel {
 	var e = New(err...).WithType(TypeUnAuthorized)
 	return e
 }
-
-func TooManyRequests(err ...error) ErrorModel {
-	var e = New(err...).WithType(TypeTooManyRequests)
-	return e
-}
-
-func FailedDependency(err ...error) ErrorModel {
-	var e = New(err...).WithType(TypeFailedDependency)
-	return e
-}
-
-func TooEarly(err ...error) ErrorModel {
-	var e = New(err...).WithType(TypeTooEarly)
-	return e
-}

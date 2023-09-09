@@ -11,12 +11,6 @@ type ErrorModel interface {
 	WithMessage(message string) ErrorModel
 	Message() string
 
-	WithMessageOne(message string) ErrorModel
-	MessageOne() string
-
-	WithPluralCount(count interface{}) ErrorModel
-	PluralCount() interface{}
-
 	WithDetail(message string) ErrorModel
 	WithType(errorType ErrorType) ErrorModel
 	WithProperty(key string, value interface{}) ErrorModel
@@ -124,10 +118,6 @@ func (error *err) setDefaults() {
 			error.ID = "InternalError"
 			error.defaultId = true
 			break
-		case TypeFailedDependency:
-			error.ID = "FailedDependencyError"
-			error.defaultId = true
-			break
 		}
 	}
 	if error.ErrMessage == "" {
@@ -152,10 +142,6 @@ func (error *err) setDefaults() {
 			error.ErrMessage = "Internal error occurred, Please contact administrator"
 			error.defaultMsg = true
 			break
-		case TypeFailedDependency:
-			error.ErrMessage = "The request could not be performed on the resource because the requested action depended on another action and that action failed."
-			error.defaultMsg = true
-			break
 		}
 	}
 }
@@ -174,24 +160,6 @@ func (error *err) WithMessage(message string) ErrorModel {
 
 func (error *err) Message() string {
 	return error.ErrMessage
-}
-
-func (error *err) WithMessageOne(message string) ErrorModel {
-	error.one = message
-	return error
-}
-
-func (error *err) MessageOne() string {
-	return error.one
-}
-
-func (error *err) WithPluralCount(count interface{}) ErrorModel {
-	error.pluralCount = count
-	return error
-}
-
-func (error *err) PluralCount() interface{} {
-	return error.pluralCount
 }
 
 func (error *err) WithSource(source string) ErrorModel {

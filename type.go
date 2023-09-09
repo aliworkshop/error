@@ -1,14 +1,12 @@
 package error
 
 const (
-	TypeValidation       ErrorType = "VALIDATION"
-	TypeNotFound                   = "NOT_FOUND"
-	TypeUnAuthorized               = "UNAUTHORIZED"
-	TypeForbidden                  = "FORBIDDEN"
-	TypeInternal                   = "INTERNAL"
-	TypeTooManyRequests            = "TOO_MANY_REQUESTS"
-	TypeFailedDependency           = "FAILED_DEPENDENCY"
-	TypeTooEarly                   = "TOO_EARLY"
+	TypeValidation      ErrorType = "VALIDATION"
+	TypeNotFound                  = "NOT_FOUND"
+	TypeUnAuthorized              = "UNAUTHORIZED"
+	TypeForbidden                 = "FORBIDDEN"
+	TypeInternal                  = "INTERNAL"
+	TypeTooManyRequests           = "TOO_MANY_REQUESTS"
 )
 
 type ErrorType string
