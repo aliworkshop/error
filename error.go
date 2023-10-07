@@ -33,6 +33,7 @@ type ErrorModel interface {
 	Clone() ErrorModel
 	IsMsgDefault() bool
 	IsIdDefault() bool
+	SetDefaults(bool) ErrorModel
 }
 
 type err struct {
@@ -61,8 +62,8 @@ func New(e ...error) (r ErrorModel) {
 	return r
 }
 
-func (error *err) Clone() ErrorModel {
-	e := *error
+func (error err) Clone() ErrorModel {
+	e := error
 	return &e
 }
 
@@ -87,11 +88,11 @@ func (error *err) WithCode(code int) ErrorModel {
 	return error
 }
 
-func (error *err) GetCode() int {
+func (error err) GetCode() int {
 	return error.Code
 }
 
-func (error *err) GetError() error {
+func (error err) GetError() error {
 	return error.error
 }
 
@@ -158,7 +159,7 @@ func (error *err) WithMessage(message string) ErrorModel {
 	return error
 }
 
-func (error *err) Message() string {
+func (error err) Message() string {
 	return error.ErrMessage
 }
 
@@ -204,15 +205,15 @@ func (error *err) WithExtraInfo(extraInfo map[string]interface{}) ErrorModel {
 	return error
 }
 
-func (error *err) Id() string {
+func (error err) Id() string {
 	return error.ID
 }
 
-func (error *err) Source() string {
+func (error err) Source() string {
 	return error.ErrSource
 }
 
-func (error *err) Error() string {
+func (error err) Error() string {
 	var r string
 	if error.ErrSource != "" {
 		r += "source: " + error.ErrSource + ", "
@@ -232,26 +233,32 @@ func (error *err) Error() string {
 	return r
 }
 
-func (error *err) Type() ErrorType {
+func (error err) Type() ErrorType {
 	return error.ErrType
 }
 
-func (error *err) Detail() string {
+func (error err) Detail() string {
 	return error.detail
 }
 
-func (error *err) Properties() map[string]interface{} {
+func (error err) Properties() map[string]interface{} {
 	return error.properties
 }
 
-func (error *err) ExtraInfo() map[string]interface{} {
+func (error err) ExtraInfo() map[string]interface{} {
 	return error.ExtraInformation
 }
 
-func (error *err) IsMsgDefault() bool {
+func (error err) IsMsgDefault() bool {
 	return error.defaultMsg
 }
 
-func (error *err) IsIdDefault() bool {
+func (error err) IsIdDefault() bool {
 	return error.defaultId
+}
+
+func (error *err) SetDefaults(bool) ErrorModel {
+	error.defaultId = true
+	error.defaultMsg = true
+	return error
 }

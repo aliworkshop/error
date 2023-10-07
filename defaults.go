@@ -1,25 +1,16 @@
 package error
 
-var DefaultUnAuthorizedError = UnAuthorized().
-	WithId("UnAuthorizedError").
-	WithMessage("You are not authorized.")
+var DefaultUnAuthorizedError = UnAuthorized()
 
-var DefaultForbiddenError = Forbidden().
-	WithId("ForbiddenError").
-	WithMessage("Access to this section is denied.")
+var DefaultForbiddenError = Forbidden()
 
-var DefaultValidationError = Validation().
-	WithId("ValidationError").
-	WithMessage("Invalid request information.")
+var DefaultValidationError = Validation()
 
-var DefaultNotFoundError = NotFound().
-	WithId("NotFoundError").
-	WithMessage("Requested information not found.")
+var DefaultNotFoundError = NotFound()
 
-var DefaultInternalError = Internal().
-	WithId("InternalError").
-	WithMessage("Internal error occurred.")
+var DefaultInternalError = Internal()
 
 var DefaultDuplicateError = Validation().
 	WithId("DuplicateEntryError").
-	WithMessage("Requested information already exists")
+	WithMessage("Requested information already exists").
+	SetDefaults(true)
