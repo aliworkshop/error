@@ -6,6 +6,7 @@ const (
 	TypeUnAuthorized              = "UNAUTHORIZED"
 	TypeForbidden                 = "FORBIDDEN"
 	TypeInternal                  = "INTERNAL"
+	TypeDuplicate                 = "DUPLICATE"
 	TypeTooManyRequests           = "TOO_MANY_REQUESTS"
 )
 

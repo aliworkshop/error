@@ -24,3 +24,11 @@ func UnAuthorized(err ...error) ErrorModel {
 	var e = New(err...).WithType(TypeUnAuthorized)
 	return e
 }
+
+func Duplicate(err ...error) ErrorModel {
+	return New(err...).WithType(TypeDuplicate)
+}
+
+func TooManyRequest(err ...error) ErrorModel {
+	return New(err...).WithType(TypeTooManyRequests)
+}
