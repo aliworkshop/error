@@ -1,6 +1,9 @@
 package error
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type ErrorModel interface {
 	error
@@ -17,6 +20,7 @@ type ErrorModel interface {
 	WithProperties(properties map[string]interface{}) ErrorModel
 	WithCode(code int) ErrorModel
 	WithExtraInfo(map[string]interface{}) ErrorModel
+	withStack([]StackFrame) ErrorModel
 
 	GetError() error
 	Id() string
@@ -27,6 +31,7 @@ type ErrorModel interface {
 	Properties() map[string]interface{}
 	ExtraInfo() map[string]interface{}
 	GetCode() int
+	GetStack() string
 
 	Is(errType ErrorType) bool
 
@@ -48,6 +53,7 @@ type err struct {
 	ExtraInformation map[string]interface{} `json:"extraInfo,omitempty"`
 	properties       map[string]interface{}
 	detail           string
+	stack            Stack
 	// one is the content of the message for the CLDR plural form "one".
 	one string
 	// pluralCount determines which plural form of the message is used.
@@ -56,9 +62,11 @@ type err struct {
 
 func New(e ...error) (r ErrorModel) {
 	r = new(err)
+	s := callers(4) // callers(4) skips this method, initializers, stack.callers, and runtime.Callers
 	if e != nil && len(e) > 0 && e[0] != nil {
 		r = r.WithError(e[0])
 	}
+	r = r.withStack(s.get())
 	return r
 }
 
@@ -261,4 +269,17 @@ func (error *err) SetDefaults(bool) ErrorModel {
 	error.defaultId = true
 	error.defaultMsg = true
 	return error
+}
+
+func (error *err) withStack(s []StackFrame) ErrorModel {
+	error.stack = s
+	return error
+}
+
+func (error err) GetStack() string {
+	st := ""
+	for _, s := range error.stack {
+		st += fmt.Sprintf("%s\n", s.format(":"))
+	}
+	return st
 }
