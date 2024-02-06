@@ -1,6 +1,8 @@
 package error
 
-import "reflect"
+import (
+	"errors"
+)
 
 const (
 	TypeValidation      ErrorType = "VALIDATION"
@@ -23,10 +25,9 @@ func Is(err error, errType any) bool {
 		return e.Is(errType.(ErrorType))
 	}
 
-	isComparable := reflect.TypeOf(errType).Comparable()
-	if isComparable && err == errType {
-		return true
-	}
+	return errors.Is(err, errType.(error))
+}
 
-	return false
+func As(err error, target any) bool {
+	return errors.As(err, target)
 }
