@@ -19,3 +19,7 @@ var DefaultTooManyRequestError = TooManyRequest().
 	WithId("TooManyRequestError").
 	WithMessage("Maximum requests per seconds has been reached.").
 	SetDefaults(true)
+
+var DefaultUnAuthenticatedError = UnAuthorized().
+	WithId("MustAuthenticate").
+	WithMessage("You must authenticate")
